@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-doccam-dev-130305-authRole",
+      "UnauthRoleArn": "arn:aws:iam::239093982892:role/amplify-doccam-dev-130305-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::239093982892:role/amplify-doccam-dev-130305-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-doccam-dev-130305-deployment",
+      "UnauthRoleName": "amplify-doccam-dev-130305-unauthRole",
+      "StackName": "amplify-doccam-dev-130305",
+      "StackId": "arn:aws:cloudformation:us-east-1:239093982892:stack/amplify-doccam-dev-130305/4a9aa410-415b-11eb-9a5f-0ecd7efaa235",
+      "AmplifyAppId": "d13lsbj7o92c3h"
+    },
+    "categories": {
+      "function": {
+        "doccam475f7279PostConfirmation": {
+          "GROUP": "Admin"
+        }
+      }
+    }
+  }
+}

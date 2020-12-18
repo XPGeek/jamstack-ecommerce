@@ -1,0 +1,9 @@
+{
+  "function": {
+    "doccam475f7279PostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  }
+}
