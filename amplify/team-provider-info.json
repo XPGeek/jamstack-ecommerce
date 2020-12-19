@@ -16,6 +16,9 @@
         "doccam475f7279PostConfirmation": {
           "GROUP": "Admin"
         }
+      },
+      "auth": {
+        "doccam475f7279": {}
       }
     }
   }

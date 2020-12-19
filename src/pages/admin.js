@@ -4,6 +4,9 @@ import ConfirmSignUp from '../components/formComponents/ConfirmSignUp'
 import SignIn from '../components/formComponents/SignIn'
 import Inventory from '../templates/Inventory'
 
+//https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-up
+import { Auth } from "aws-amplify"
+
 class Admin extends React.Component {
   state = { formState: 'signUp', isAdmin: false }
   toggleFormState = (formState) => {
@@ -14,21 +17,48 @@ class Admin extends React.Component {
   }
   signUp = async (form) => {
     const { username, email, password } = form
-    // sign up
+    try {
+      const { user } = await Auth.signUp({
+          username,
+          password,
+          attributes: {email}
+      });
+      console.log(user);
+  } catch (error) {
+      console.log('error signing up:', error);
+  }
     this.setState({ formState: 'confirmSignUp' })
   }
   confirmSignUp = async (form) => {
     const { username, authcode } = form
-    // confirm sign up
+    try {
+      await Auth.confirmSignUp(username, code);
+    } catch (error) {
+        console.log('error confirming sign up', error);
+    }
     this.setState({ formState: 'signIn' })
   }
   signIn = async (form) => {
     const { username, password } = form
-    // signIn
+    try {
+      const user = await Auth.signIn(username, password);
+      const {
+        signInUserSession: {
+          idToken: { payload },
+        },
+      } = user
+      console.log({ payload })
+    } catch (error) {
+      console.log('error signing in', error);
+    }
     this.setState({ formState: 'signedIn', isAdmin: true })
   }
   signOut = async() => {
-    // sign out
+    try {
+      await Auth.signOut();
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
     this.setState({ formState: 'signUp' })
   }
 
