@@ -5,10 +5,12 @@ import SignIn from '../components/formComponents/SignIn'
 import Inventory from '../templates/Inventory'
 
 //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-up
-import { Auth } from "aws-amplify"
+import { Auth } from 'aws-amplify'
+
+import { toast } from 'react-toastify';
 
 class Admin extends React.Component {
-  state = { formState: 'signUp', isAdmin: false }
+  state = { formState: "signUp", isAdmin: false }
   toggleFormState = (formState) => {
     this.setState(() => ({ formState }))
   }
@@ -18,25 +20,40 @@ class Admin extends React.Component {
   signUp = async (form) => {
     const { username, email, password } = form
     try {
-      const { user } = await Auth.signUp({
+      const user = await Auth.signUp({
           username,
           password,
-          attributes: {email}
+          attributes: {
+            email,
+          },
       });
-      console.log(user);
+      console.log({ user });
+      toast("Check " + email + " for a confirmation code!", {
+        position: toast.POSITION.TOP_LEFT
+      })
+      this.setState({ formState: "confirmSignUp" })
   } catch (error) {
-      console.log('error signing up:', error);
+    toast("Error! " + error['message'], {
+      position: toast.POSITION.TOP_LEFT
+    })
+      console.log("Error! ", error);
   }
-    this.setState({ formState: 'confirmSignUp' })
   }
   confirmSignUp = async (form) => {
     const { username, authcode } = form
     try {
-      await Auth.confirmSignUp(username, code);
+      await Auth.confirmSignUp(username, authcode);
+      toast(username + " may now sign in!", {
+        position: toast.POSITION.TOP_LEFT
+      })
+      this.setState({ formState: "signIn" })
     } catch (error) {
-        console.log('error confirming sign up', error);
+      toast("Error! " + error['message'], {
+        position: toast.POSITION.TOP_LEFT
+      })
+        console.log("Error confirming sign up: ", error);
     }
-    this.setState({ formState: 'signIn' })
+
   }
   signIn = async (form) => {
     const { username, password } = form
@@ -48,31 +65,54 @@ class Admin extends React.Component {
         },
       } = user
       console.log({ payload })
+
+      if (
+        payload["cognito:groups"] &&
+        payload["cognito:groups"].includes("Admin")
+      ) {
+        toast("Welcome, " + username + "!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+        this.setState({ formState: "signedIn", isAdmin: true })
+      } else {
+        toast("Sorry, you are not an admin!", {
+          position: toast.POSITION.TOP_LEFT
+        })
+      }
+      
     } catch (error) {
-      console.log('error signing in', error);
+      toast("Error! " + error['message'], {
+        position: toast.POSITION.TOP_LEFT
+      })
+      console.log("Error! ", error);
     }
-    this.setState({ formState: 'signedIn', isAdmin: true })
   }
   signOut = async() => {
     try {
       await Auth.signOut();
+      this.setState({ formState: "signUp" })
+      toast("Signed out, see you soon!", {
+        position: toast.POSITION.TOP_LEFT
+      })
     } catch (error) {
-      console.log('error signing out: ', error);
+      toast("Error! " + error['message'], {
+        position: toast.POSITION.TOP_LEFT
+      })
+      console.log("Error! ", error);
     }
-    this.setState({ formState: 'signUp' })
   }
 
   render() {
     const { formState, isAdmin } = this.state
     const renderForm = (formState, state) => {
       switch(formState) {
-        case 'signUp':
+        case "signUp":
           return <SignUp {...state} signUp={this.signUp} toggleFormState={this.toggleFormState} />
-        case 'confirmSignUp':
+        case "confirmSignUp":
           return <ConfirmSignUp {...state} confirmSignUp={this.confirmSignUp} />
-        case 'signIn':
+        case "signIn":
           return <SignIn {...state} signIn={this.signIn} toggleFormState={this.toggleFormState} />
-        case 'signedIn':
+        case "signedIn":
           return isAdmin ? <Inventory {...state} signOut={this.signOut} /> : <h3>Not an admin</h3>
         default:
           return null
