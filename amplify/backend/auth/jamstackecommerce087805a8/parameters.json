@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "doccam475f7279_identitypool_475f7279",
-    "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "doccam475f7279",
-    "userPoolName": "doccam475f7279_userpool_475f7279",
+    "identityPoolName": "jamstackecommerce087805a8_identitypool_087805a8",
+    "allowUnauthenticatedIdentities": true,
+    "resourceNameTruncated": "jamsta087805a8",
+    "userPoolName": "jamstackecommerce087805a8_userpool_087805a8",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "doccam475f7279_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "jamsta087805a8_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "475f7279",
-    "resourceName": "doccam475f7279",
+    "sharedId": "087805a8",
+    "resourceName": "jamstackecommerce087805a8",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -59,7 +59,7 @@
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "doccam475f7279PostConfirmation",
+            "resourceName": "jamstackecommerce087805a8PostConfirmation",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",

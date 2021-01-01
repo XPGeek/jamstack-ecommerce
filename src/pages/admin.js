@@ -5,7 +5,7 @@ import SignIn from '../components/formComponents/SignIn'
 import Inventory from '../templates/Inventory'
 
 //https://docs.amplify.aws/lib/auth/emailpassword/q/platform/js#sign-up
-import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 
 import { toast } from 'react-toastify';
 

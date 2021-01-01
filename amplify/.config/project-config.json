@@ -1,12 +1,12 @@
 {
-  "projectName": "doccam",
+  "projectName": "jamstackecommerce",
   "version": "3.0",
   "frontend": "javascript",
   "javascript": {
     "framework": "react",
     "config": {
       "SourceDir": "src",
-      "DistributionDir": "build",
+      "DistributionDir": "public",
       "BuildCommand": "npm.cmd run-script build",
       "StartCommand": "npm.cmd run-script start"
     }

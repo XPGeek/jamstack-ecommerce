@@ -11,13 +11,13 @@ Parameters:
   
   
   
-  functiondoccam475f7279PostConfirmationArn:
+  functionjamstackecommerce087805a8PostConfirmationArn:
     Type: String
-    Default: functiondoccam475f7279PostConfirmationArn
+    Default: functionjamstackecommerce087805a8PostConfirmationArn
   
-  functiondoccam475f7279PostConfirmationName:
+  functionjamstackecommerce087805a8PostConfirmationName:
     Type: String
-    Default: functiondoccam475f7279PostConfirmationName
+    Default: functionjamstackecommerce087805a8PostConfirmationName
   
   
   
@@ -133,7 +133,6 @@ Parameters:
   userPoolGroupList:
     Type: CommaDelimitedList
       
-            
   serviceName:
     Type: String
   
@@ -165,7 +164,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'doccam475f7279_sns-role', !Join ['',[ 'sns', '475f7279', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'jamsta087805a8_sns-role', !Join ['',[ 'sns', '087805a8', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -177,10 +176,10 @@ Resources:
               - "sts:AssumeRole"
             Condition:
               StringEquals:
-                sts:ExternalId: doccam475f7279_role_external_id
+                sts:ExternalId: jamsta087805a8_role_external_id
       Policies:
         -
-          PolicyName: doccam475f7279-sns-policy
+          PolicyName: jamsta087805a8-sns-policy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -217,7 +216,7 @@ Resources:
         
         
         
-          PostConfirmation: !Ref functiondoccam475f7279PostConfirmationArn
+          PostConfirmation: !Ref functionjamstackecommerce087805a8PostConfirmationArn
         
         
         
@@ -243,7 +242,7 @@ Resources:
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration:
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: doccam475f7279_role_external_id
+        ExternalId: jamsta087805a8_role_external_id
     
   
   
@@ -257,7 +256,7 @@ Resources:
     Properties:
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functiondoccam475f7279PostConfirmationName
+      FunctionName: !Ref functionjamstackecommerce087805a8PostConfirmationName
       SourceArn: !GetAtt UserPool.Arn
   
   
@@ -267,10 +266,10 @@ Resources:
   # Updating lambda role with permissions to Cognito
   
   
-  doccam475f7279PostConfirmationAddToGroupCognito:
+  jamstackecommerce087805a8PostConfirmationAddToGroupCognito:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: doccam475f7279PostConfirmationAddToGroupCognito
+      PolicyName: jamstackecommerce087805a8PostConfirmationAddToGroupCognito
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -295,7 +294,7 @@ Resources:
             
 
       Roles:
-        - !Join ['',["doccam475f7279PostConfirmation", '-', !Ref env]]
+        - !Join ['',["jamstackecommerce087805a8PostConfirmation", '-', !Ref env]]
   
   
   
@@ -304,7 +303,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: doccam475f7279_app_clientWeb
+      ClientName: jamsta087805a8_app_clientWeb
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -314,7 +313,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: doccam475f7279_app_client
+      ClientName: jamsta087805a8_app_client
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
@@ -325,7 +324,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '475f7279', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '087805a8', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -379,7 +378,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: doccam475f7279_userpoolclient_lambda_iam_policy
+      PolicyName: jamsta087805a8_userpoolclient_lambda_iam_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -396,7 +395,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: doccam475f7279_userpoolclient_lambda_log_policy
+      PolicyName: jamsta087805a8_userpoolclient_lambda_log_policy
       Roles:
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -436,7 +435,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties:
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'doccam475f7279_identitypool_475f7279', !Join ['',['doccam475f7279_identitypool_475f7279', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'jamstackecommerce087805a8_identitypool_087805a8', !Join ['',['jamstackecommerce087805a8_identitypool_087805a8', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

@@ -1,0 +1,5 @@
+√ Generated GraphQL operations successfully and saved at src\graphql
+√ All resources are updated in the cloud
+
+GraphQL endpoint: https://wgxgr4zdovdv3b7lnrs5athqwu.appsync-api.us-east-1.amazonaws.com/graphql
+GraphQL API KEY: da2-gxbujkrn5vadbndg4r7m6nqeha

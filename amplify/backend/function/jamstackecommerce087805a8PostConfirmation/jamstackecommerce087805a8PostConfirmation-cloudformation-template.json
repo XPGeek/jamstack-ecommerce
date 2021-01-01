@@ -61,12 +61,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "doccam475f7279PostConfirmation",
+            "jamstackecommerce087805a8PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "doccam475f7279PostConfirmation",
+                  "jamstackecommerce087805a8PostConfirmation",
                   "-",
                   {
                     "Ref": "env"
@@ -101,8 +101,8 @@
         "Runtime": "nodejs10.x",
         "Timeout": "25",
         "Code": {
-          "S3Bucket": "amplify-doccam-dev-130305-deployment",
-          "S3Key": "amplify-builds/doccam475f7279PostConfirmation-76792f784f4f46597966-build.zip"
+          "S3Bucket": "amplify-jamstackecommerce-dev-165948-deployment",
+          "S3Key": "amplify-builds/jamstackecommerce087805a8PostConfirmation-2f47495945313238335a-build.zip"
         }
       }
     },
@@ -112,12 +112,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "doccam475f7279PostConfirmation",
+            "jamstackecommerce087805a8PostConfirmation",
             {
               "Fn::Join": [
                 "",
                 [
-                  "doccam475f7279PostConfirmation",
+                  "jamstackecommerce087805a8PostConfirmation",
                   "-",
                   {
                     "Ref": "env"

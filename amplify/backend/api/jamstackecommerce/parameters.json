@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "jamstackecommerce",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authjamstackecommerce087805a8",
+      "Outputs.UserPoolId"
+    ]
+  }
+}
