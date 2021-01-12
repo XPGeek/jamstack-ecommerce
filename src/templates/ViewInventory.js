@@ -3,7 +3,20 @@ import getInventory, { DENOMINATION } from '../../providers/inventoryProvider'
 import Image from '../components/Image'
 import { Link } from 'gatsby'
 import { slugify } from '../../utils/helpers'
-import { FaTimes } from 'react-icons/fa'
+import { FaTemperatureHigh, FaTimes } from 'react-icons/fa'
+
+import { API } from 'aws-amplify';
+import { listProducts } from '../graphql/queries';
+
+function formatNumber({number, currency}){
+  const locale = typeof window !== "undefined" ? "en-US" : navigator.language
+  const result = new Intl.NumberFormat(locale, {
+     style: "currency",
+     currency
+    }).format((number/100).toFixed(2))
+  console.log(result)
+  return result
+}
 
 class ViewInventory extends React.Component {
   state = {
@@ -15,7 +28,10 @@ class ViewInventory extends React.Component {
     this.fetchInventory()
   }
   fetchInventory = async() => {
-    const inventory = await getInventory()
+    //const inventory = await getInventory()
+    const inventoryData = await API.graphql({query: listProducts})
+    const inventory = inventoryData.data.listProducts.items
+    console.log({inventory})
     this.setState({ inventory })
   }
   editItem = (item, index) => {
@@ -101,7 +117,7 @@ class ViewInventory extends React.Component {
                   <div className="flex flex-1 justify-end">
                     <p className="m-0 pl-10 text-gray-900 tracking-tighter text-sm">In stock: {item.currentInventory}</p>
                     <p className="m-0 pl-20 text-gray-900 tracking-tighter font-semibold">
-                      {DENOMINATION + item.price}
+                      {formatNumber({number: item.price, currency: DENOMINATION})}
                     </p>
                   </div>
                   <div className="flex items-center m-0 ml-10 text-gray-900 text-s cursor-pointer">

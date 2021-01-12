@@ -16,6 +16,20 @@ class Admin extends React.Component {
   }
   async componentDidMount() {
     // check and update signed in state
+    const user = await Auth.currentAuthenticatedUser()
+    const {
+      signInUserSession: {
+        idToken: { payload },
+      },
+    } = user
+    console.log({ payload })
+
+    if (
+      payload["cognito:groups"] &&
+      payload["cognito:groups"].includes("Admin")
+    ) {
+      this.setState({ formState: "signedIn", isAdmin: true })
+    }
   }
   signUp = async (form) => {
     const { username, email, password } = form

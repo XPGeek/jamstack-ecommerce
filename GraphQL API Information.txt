@@ -3,3 +3,37 @@
 
 GraphQL endpoint: https://wgxgr4zdovdv3b7lnrs5athqwu.appsync-api.us-east-1.amazonaws.com/graphql
 GraphQL API KEY: da2-gxbujkrn5vadbndg4r7m6nqeha
+
+CREATION STATEMENT:
+
+mutation {
+  createProduct(input:{
+    categories:["complete"],
+    price: 1400,
+    name: "Doccam - Complete Kit",
+    image: "https://en.wikipedia.org/wiki/Tree#/media/File:Ash_Tree_-_geograph.org.uk_-_590710.jpg",
+    description: "One complete Doccam compatible with essentially all webcam enabled devices! Includes clip, mirror, and lid.",
+    currentInventory: 1000,
+    brand: "Doccam"
+  }) {
+    id
+  }
+}
+
+QUERY STATEMENT:
+
+query{
+  listProducts{
+    items {
+    	id
+    	categories
+    	price
+    	name
+  		image
+      description
+      currentInventory
+      createdAt
+      updatedAt
+  	}
+  }
+}
